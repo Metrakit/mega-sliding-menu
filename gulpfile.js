@@ -26,7 +26,7 @@ var plumberErrorHandler = { errorHandler: notify.onError({
 // Browser-sync
 gulp.task('browser-sync', function() {
     browserSync({
-        baseDir: "./examples/"
+        proxy: "http://mega-sliding-menu.app"
     });
 });
 
@@ -64,7 +64,8 @@ gulp.task('compass', function() {
 // Default task
 gulp.task('default', ['browser-sync', 'js', 'compass'], function () {
     gulp.watch(path.src + "/js/*.js", ['js', browserSync.reload]);
-    gulp.watch(path.src + "/scss/*.scss", ['compass']);
+    gulp.watch(path.src + "/scss/*.scss", ['compass', browserSync.reload]);
+    gulp.watch('examples/*.html', [browserSync.reload]);
 });
 
 

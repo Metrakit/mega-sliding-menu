@@ -1,0 +1,20 @@
+{
+  "name": "mega-sliding-menu",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Metrakit/mega-sliding-menu",
+  "authors": [
+    "Jordane <jordane.jouffroy@outlook.com>"
+  ],
+  "description": "mega sliding menu",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}

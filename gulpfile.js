@@ -5,7 +5,8 @@ var gulp           = require('gulp'),
     browserSync    = require('browser-sync'),
     reload         = browserSync.reload;
     compass        = require('gulp-compass'),
-    plumber        = require('gulp-plumber')
+    plumber        = require('gulp-plumber'),
+    uglify         = require('gulp-uglify')
     path           = require('path');
 
 // paths
@@ -35,6 +36,8 @@ gulp.task('js', function() {
     var masterJS = [path.src + '/js/*.js'];
     return gulp.src(masterJS)
         .pipe(jshint())
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'))
         .pipe(notify({
             icon: path.icons + "cake.png",
             title: "JAVASCRIPT ERROR",
@@ -53,10 +56,11 @@ gulp.task('js', function() {
  
 // Sass
 gulp.task('compass', function() {
-  gulp.src(path.src + '/scss/*.scss')
+  gulp.src(path.src + '/sass/*.scss')
     .pipe(plumber(plumberErrorHandler))
     .pipe(compass({
-      css: path.dist + '/css/',
+      css: 'dist/css',
+      sass: 'src/sass'
     }))
     .pipe(reload({stream: true}));
 });
@@ -64,7 +68,7 @@ gulp.task('compass', function() {
 // Default task
 gulp.task('default', ['browser-sync', 'js', 'compass'], function () {
     gulp.watch(path.src + "/js/*.js", ['js', browserSync.reload]);
-    gulp.watch(path.src + "/scss/*.scss", ['compass', browserSync.reload]);
+    gulp.watch(path.src + "/sass/*.scss", ['compass', browserSync.reload]);
     gulp.watch('examples/*.html', [browserSync.reload]);
 });
 
